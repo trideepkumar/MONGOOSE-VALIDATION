@@ -58,23 +58,10 @@ app.get('/', (req, res) => {
   res.render('signin');
 })
 
-//data connection to mongodb
+app.use('/admin',adminRoute);
 
-app.post('/save', async (req, res) => {
-  if (req.body.password == req.body.password1) {
-    const registeruser = new Register
-    ({
-      Email: req.body.email,
-      password: req.body.password
-    })
-    const registered = await registeruser.save()
-    res.render('home')
-  } else 
-  {
-    res.render('signup', { message: 'invalid registration' })
-  }
-
-
+app.get('/admin',(req,res)=>{
+  res.render('admin')
 })
 
 
