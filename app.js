@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const Handlebars = require('handlebars')
 const hbs = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const mongoose = require('mongoose');
 //mongoose schema require
 const Register = require('./model/user')
@@ -35,6 +37,7 @@ app.engine(
     defaultLayout: "layout",
     layoutDir: __dirname + "/views/layout/",
     partialsDir: __dirname + "/views/partials",
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
   })
 );
 

@@ -53,7 +53,7 @@
     font-size: 1.1rem;
     font-weight: bolder;
     color: #fff;
-    background: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+    background: linear-gradient(to right, #7fbfd8, #43c7af, #00f7ff, #46e8f4);
   }
   span{
     display: flex;
@@ -107,4 +107,17 @@
   justify-content: center;
   align-items: center;
   color: red;
+}
+
+.update{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
+
+
+}
+#admin{
+   background-color: rgb(179, 106, 106);
+   color: white;
 }
