@@ -7,6 +7,16 @@
             event.preventDefault();
         }
     })
+    const updateForm = document.querySelector('.form-update');
+    //for event listening
+    updateForm.addEventListener('submit', (event) => {
+        if (validateForm()) {
+            form.submit();
+        } else {
+            event.preventDefault();
+        }
+    })
+    console.log(form)
     //function for form validaton
     function validateForm() {
         console.log('Checking');

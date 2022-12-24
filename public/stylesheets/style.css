@@ -121,3 +121,21 @@
    background-color: rgb(179, 106, 106);
    color: white;
 }
+.add-user{
+  text-decoration: none;
+  display: flex;
+ justify-content: space-between;
+ color: wheat;
+ background: linear-gradient(rgb(226, 226, 220), rgb(210, 210, 230), rgb(206, 231, 206) ,rgb(219, 197, 156));
+}
+.add-btn{
+  background-color: rgb(255, 0, 60);
+  padding-top: 8px;
+  border-radius: 10px;
+  height: 40px;
+  margin-top: 7px;
+  margin-left: 10px;
+  color: white;
+  width: 80px;
+
+}

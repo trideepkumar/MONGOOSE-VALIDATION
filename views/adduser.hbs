@@ -1,0 +1,21 @@
+<div class="container">
+    <form class="form-update form-1" action="/admin/adduser" method="post">
+        <h1 style="color:rgb(152, 152, 239);">ADD USER</h1>
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" />
+        <div class="valid">{{message1}}</div>
+
+        <label for="password">Password</label>
+        <input type="text" name="password" id="password" />
+
+        <label for="password">Password</label>
+        <input type="text" name="password1" id="password1" />
+
+        <div class="valid">{{errMessage}}{{message3}}</div>
+
+       
+
+        <button id="submit" type="submit">ADD USER</button>
+
+    </form>
+</div>

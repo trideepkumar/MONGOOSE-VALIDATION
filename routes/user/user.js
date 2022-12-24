@@ -18,7 +18,7 @@ router.get('/home', (req, res) => {
     res.render('home')
 })
 
-// checking user in signin
+// checking user in signup
 router.post('/save', async (req, res) => {
     const check = req.body.email
     const user = await Register.findOne({ Email: check })
