@@ -139,3 +139,17 @@
   width: 80px;
 
 }
+.logout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 0, 60);
+  padding-top: 8px;
+  border-radius: 10px;
+  height: 40px;
+  margin-top: 7px;
+  margin-left: 10px;
+  color: white;
+  width: 80px;
+
+}

@@ -7,6 +7,11 @@ const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-acce
 const mongoose = require('mongoose');
 //mongoose schema require
 const Register = require('./model/user')
+
+
+
+
+
 // midddlewares
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
@@ -14,9 +19,17 @@ app.use(express.urlencoded({ extended: false }));
 // parsing the incoming data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+//serving public file
+app.use(express.static(__dirname));
+// cookie parser middleware
+
 
 //serving public file
 app.use(express.static(__dirname));
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+const oneDay = 1000 * 60 * 60 * 24;
+
 
 
 
@@ -40,6 +53,16 @@ app.engine(
     handlebars: allowInsecurePrototypeAccess(Handlebars)
   })
 );
+
+//for sessions
+app.use(sessions({
+  secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+  saveUninitialized:true,
+  cookie: { maxAge: oneDay },
+  resave: false
+}));
+app.use(cookieParser());
+
 
 
 // Importing routes

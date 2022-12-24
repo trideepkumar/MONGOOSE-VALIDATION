@@ -1,12 +1,36 @@
-const { error } = require('console');
 const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose");
 const Register = require('../../model/user')
 
-router.get('/', (req, res) => {
-    res.render('signin');
+//for cache control
+router.use((req, res, next) => {
+    res.set('cache-control', 'no-cache,private,no-store,must-revalidate,max-stale=0,post-check=0,pre-check=0')
+    next();
+  });
+  
+//for session
+router.get('/',async (req,res)=>{
+    const {email , password} = req.body ;
+
+    const user = await Register.find({Email: email , password: password});
+    if(user.length === 1) {
+        session=req.session;
+        session.userid = email;
+        res.redirect('/home');
+    } else {
+        res.render('signin' , {isRegitered: true , errMessage: "User doesn't exist"});
+    }  
+})
+
+//for session destroy
+router.get('/logout',(req,res) => {
+    req.session.destroy();
+    res.redirect('/');
 });
+
+
+
 
 
 router.get('/signup', (req, res) => {
@@ -26,7 +50,7 @@ router.post('/save', async (req, res) => {
          res.render('signup', { isRegitered: true, errMessage: 'E-mail id already exists !' });
         console.log('Exist')
     } else {
-        res.render('home')
+        res.render('signin')
         console.log('New')
     }
 
@@ -38,7 +62,7 @@ router.post('/save', async (req, res) => {
             })
 
         const registered = await registeruser.save()
-        res.render('home')
+        res.render('signin')
     } else {
         res.render('signup', { message: 'invalid registration' })
     }
