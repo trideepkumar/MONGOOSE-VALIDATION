@@ -80,7 +80,10 @@ const adminRoute = require('./routes/admin/admin');
 app.use('/', userRoute);
 
 app.get('/', (req, res) => {
-  res.render('signin');
+  if(req.session.userid){
+ return res.render(`home`)
+  } 
+res.render('signin');
 })
 
 app.use('/admin',adminRoute);

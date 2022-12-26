@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const router = express.Router();
 const mongoose = require("mongoose");
 const Register = require('../../model/user')
@@ -10,17 +11,30 @@ router.use((req, res, next) => {
   });
   
 //for session
-router.get('/',async (req,res)=>{
-    const {email , password} = req.body ;
-
+router.post('/',async (req,res)=>{
     const user = await Register.find({Email: email , password: password});
-    if(user.length === 1) {
-        session=req.session;
-        session.userid = email;
+    if(user.length > 0) {
         res.redirect('/home');
     } else {
         res.render('signin' , {isRegitered: true , errMessage: "User doesn't exist"});
     }  
+})
+
+
+// checking existing e-mail
+
+router.post('/signin',  async (req, res) => {
+        const user = await Register.findOne({Email:req.body.email , password: req.body.password})
+       
+         if(user){
+           let session=req.session;
+            session.userid=req.body.email;
+            console.log(req.session)
+             res.render('home')
+        }else{
+             res.render('signin',{message2:'User does not exist!'})
+            
+        }
 })
 
 //for session destroy
@@ -28,9 +42,6 @@ router.get('/logout',(req,res) => {
     req.session.destroy();
     res.redirect('/');
 });
-
-
-
 
 
 router.get('/signup', (req, res) => {
@@ -42,17 +53,23 @@ router.get('/home', (req, res) => {
     res.render('home')
 })
 
+
 // checking user in signup
+
 router.post('/save', async (req, res) => {
+
+    //for finding same mail exist or not
+
     const check = req.body.email
     const user = await Register.findOne({ Email: check })
     if (user) {
          res.render('signup', { isRegitered: true, errMessage: 'E-mail id already exists !' });
         console.log('Exist')
     } else {
-        res.render('signin')
+      res.render('signin')
         console.log('New')
     }
+//for saving userinfo in db 
 
     if(req.body.password == req.body.password1) {
         const registeruser = new Register
@@ -70,19 +87,10 @@ router.post('/save', async (req, res) => {
 
 })
 
-router.post('/signin',  async (req, res) => {
-        const user = await Register.findOne({Email:req.body.email , password: req.body.password})
-        console.log(user);
-         if(user){
-             res.render('home')
-        }else{
-             res.render('signin',{message2:'User does not exist!'})
-            console.log(error)
-        }
-})
+ 
   
 
-// checking existing e-mail
+
 
 
 
